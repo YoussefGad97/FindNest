@@ -1,80 +1,168 @@
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: fixed;
+﻿@import "variables";
+
+// Main navbar container
+.custom-navbar {
+  background-color: $bg-color;
+  box-shadow: 0 2px 8px rgba($primary-color, 0.1);
+  transition: all 0.3s ease;
+}
+
+// Brand section
+.custom-navbar .navbar-brand {
+  color: $text-color;
+  font-weight: 600;
+  transition: all 0.2s ease;
+
+  .navbar-logo {
+    transition: transform 0.3s ease;
+  }
+
+  .brand-text {
+    background: linear-gradient(45deg, $primary-color, $secondary-color);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    font-weight: 700;
+  }
+
+  &:hover .navbar-logo {
+    transform: scale(1.05);
+  }
+}
+
+// Search section
+.custom-navbar .search-input {
+  border: 2px solid rgba($primary-color, 0.1);
+  border-right: none;
+  transition: all 0.2s ease;
+
+  &:focus {
+    border-color: $primary-color;
+    box-shadow: none;
+
+    & + .search-btn {
+      border-color: $primary-color;
+      color: $primary-color;
+    }
+  }
+}
+
+.custom-navbar .search-btn {
+  border: 2px solid rgba($primary-color, 0.1);
+  border-left: none;
+  color: $text-color;
+
+  &:hover {
+    background-color: $primary-color;
+    color: white;
+  }
+}
+
+// Navigation links
+.custom-navbar .nav-links .nav-link {
+  color: $text-color;
+  position: relative;
+  padding: 0.5rem 1rem;
+  margin: 0 0.25rem;
+  transition: all 0.2s ease;
+
+  i {
+    transition: transform 0.2s ease;
+  }
+
+  &:hover {
+    color: $primary-color;
+
+    i {
+      transform: scale(1.1);
+    }
+  }
+
+  &.active {
+    color: $primary-color;
+    font-weight: 500;
+
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 2px;
+      background-color: $primary-color;
+      transition: width 0.2s ease;
+    }
+
+    &:hover:after {
+      width: 30px;
+    }
+  }
+}
+
+// Collections link with badge
+.custom-navbar .collections-link {
+  position: relative;
+
+  .saved-badge {
+    position: absolute;
     top: 0;
-    left: 0;
     right: 0;
-    z-index: 1000;
+    transform: translate(25%, -25%);
+    background-color: $complementary-color;
+    border: 2px solid $bg-color;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
 
-    &__logo {
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: #333;
-        text-decoration: none;
+// Dropdown menu
+.custom-navbar .dropdown-menu {
+  border: none;
+  box-shadow: 0 4px 12px rgba($primary-color, 0.1);
+  border-radius: 8px;
+
+  .dropdown-item {
+    padding: 0.5rem 1rem;
+    color: $text-color;
+    transition: all 0.2s ease;
+
+    &:hover,
+    &:active,
+    &.active {
+      background-color: rgba($primary-color, 0.1);
+      color: $primary-color;
+    }
+  }
+}
+
+// Max width container
+.custom-navbar .max-width-500 {
+  max-width: 500px;
+}
+
+// Responsive styles
+@media (max-width: 991px) {
+  .custom-navbar {
+    .max-width-500 {
+      max-width: 100%;
     }
 
-    &__menu {
-        display: flex;
-        gap: 2rem;
-        list-style: none;
-        margin: 0;
-        padding: 0;
+    .nav-links {
+      margin-top: 1rem;
 
-        &-item {
-            a {
-                color: #666;
-                text-decoration: none;
-                font-size: 1rem;
-                transition: color 0.3s ease;
+      .nav-link {
+        padding: 0.75rem 1rem;
 
-                &:hover {
-                    color: #333;
-                }
-            }
+        &.active:after {
+          display: none;
         }
+      }
     }
-
-    &__actions {
-        display: flex;
-        gap: 1rem;
-        align-items: center;
-
-        button {
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-
-            &.primary {
-                background-color: #007bff;
-                color: white;
-
-                &:hover {
-                    background-color: #0056b3;
-                }
-            }
-
-            &.secondary {
-                background-color: transparent;
-                color: #007bff;
-                border: 1px solid #007bff;
-
-                &:hover {
-                    background-color: #f8f9fa;
-                }
-            }
-        }
-    }
-
-    @media (max-width: 768px) {
-        &__menu {
-            display: none;
-        }
-    }
+  }
 }

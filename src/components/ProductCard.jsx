@@ -1,6 +1,7 @@
 import { Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import '../styles/product-card.scss';
 
 const ProductCard = ({ id, title = 'Product', image, price, affiliate, onView }) => {
   const [saved, setSaved] = useState(false);

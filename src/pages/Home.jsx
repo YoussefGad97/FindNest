@@ -1,31 +1,50 @@
-import { motion } from "framer-motion";
-import { Container } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import ProductCard from '../components/ProductCard';
 import products from '../data/products';
 import ProductMasonry from '../components/ProductMasonry';
+import { useTheme } from '../context/ThemeContext';
+import banner from '../assets/banner.jpg';
 import "../styles/home.scss";
 
 const Home = () => {
   return (
     <section className="home">
-      <motion.div className="landing-banner" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1512446813052-6b1a6b87c1c7?q=80&w=1680&auto=format&fit=crop&ixlib=rb-4.0.3&s=2a9e2b6ef8b1b1c7b6f5b3d8d8e9a2c0')" }}>
+      <div className="landing-banner animated-fade" style={{ backgroundImage: `url(${banner})` }}>
         <div className="overlay">
           <Container>
-            <h1>Discover the Best Finds on Amazon</h1>
-            <p>Curated collections, trending products, and must-have deals — all in one place.</p>
+            <h1 className="animated-slide-up">Discover the Best Finds on Amazon</h1>
+            <p className="animated-slide-up delay">Curated collections, trending products, and must-have deals — all in one place.</p>
           </Container>
         </div>
-      </motion.div>
+      </div>
 
       <Container className="about-section">
-        <div className="about-image">
-          <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&s=1d6b5f6a0c3e4c2b3a6e8b7f9e5a1c2d" alt="about" style={{ width: '100%', borderRadius: 8 }} />
-        </div>
-        <div className="about-text">
-          <h2>About FindNest</h2>
-          <p>FindNest curates top products and deals from Amazon and makes it easy for you to discover, save, and purchase items. We pair curated lists with affiliate links so we can keep the lights on — please see our affiliate disclosure in the footer.</p>
-        </div>
+        <Row className="align-items-center">
+          <Col lg={6}>
+            <div className="about-image animated-slide-left">
+              <div className="image-container">
+                <img src={banner} alt="about" />
+              </div>
+            </div>
+          </Col>
+          <Col lg={6}>
+            <div className="about-text animated-slide-right">
+              <h2>About FindNest</h2>
+              <div className="about-content">
+                <p>
+                  FindNest is your personal product discovery platform, making it effortless to find and save the best products from Amazon. Our curated collections are designed to help you make informed purchasing decisions.
+                </p>
+                <ul>
+                  <li>Hand-picked quality products</li>
+                  <li>Daily updated collections</li>
+                  <li>Trusted by thousands of shoppers</li>
+                </ul>
+              </div>
+            </div>
+          </Col>
+        </Row>
       </Container>
+
       <Container className="mt-4">
         <ProductMasonry>
           {products.map(p => (

@@ -6,27 +6,30 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import PinterestTag from "./components/PinterestTag";
+import { ThemeProvider } from "./context/ThemeContext";
 import "./styles/global.scss";
 import Product from "./pages/Product";
 import Collections from "./pages/Collections";
 
 function App() {
   return (
-    <Router>
-      <PinterestTag />
-      <Navbar />
-      <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/product/:id" element={<Product />} />
-          <Route path="/collections" element={<Collections />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </main>
-      <Footer />
-    </Router>
+    <ThemeProvider>
+      <Router>
+        <PinterestTag />
+        <Navbar />
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/product/:id" element={<Product />} />
+            <Route path="/collections" element={<Collections />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
+  <Footer />
+      </Router>
+    </ThemeProvider>
   );
 }
 
