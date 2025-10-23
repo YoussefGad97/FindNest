@@ -1,0 +1,38 @@
+/* Landing banner */
+.home .landing-banner {
+	width: 100%;
+	height: 320px;
+	background-size: cover;
+	background-position: center;
+	display: flex;
+	align-items: center;
+	color: white;
+}
+
+.home .landing-banner .overlay {
+	background: rgba(0,0,0,0.35);
+	width: 100%;
+	padding: 2rem;
+}
+
+/* Two-column about section */
+.home .about-section {
+	display: flex;
+	gap: 1rem;
+	align-items: center;
+	margin-top: 2rem;
+}
+
+.home .about-section .about-image {
+	flex: 1;
+}
+
+.home .about-section .about-text {
+	flex: 1;
+}
+
+/* Product card tweaks for masonry */
+.product-card {
+	width: 100%;
+}
+
