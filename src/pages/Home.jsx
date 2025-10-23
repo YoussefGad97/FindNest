@@ -1,12 +1,29 @@
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, ButtonGroup, Button } from 'react-bootstrap';
 import ProductCard from '../components/ProductCard';
 import products from '../data/products';
 import ProductMasonry from '../components/ProductMasonry';
-import { useTheme } from '../context/ThemeContext';
+import { useState, useMemo } from 'react';
 import banner from '../assets/banner.jpg';
 import "../styles/home.scss";
 
 const Home = () => {
+  const [activeCategory, setActiveCategory] = useState('all');
+
+  // derive unique categories from products
+  const categories = useMemo(() => {
+    const set = new Map();
+    products.forEach((p) => {
+      const cat = p.category || 'uncategorized';
+      if (!set.has(cat)) set.set(cat, cat);
+    });
+    return ['all', ...Array.from(set.keys())];
+  }, []);
+
+  const filtered = useMemo(() => {
+    if (activeCategory === 'all') return products;
+    return products.filter(p => (p.category || 'uncategorized') === activeCategory);
+  }, [activeCategory]);
+
   return (
     <section className="home">
       <div className="landing-banner animated-fade" style={{ backgroundImage: `url(${banner})` }}>
@@ -45,9 +62,31 @@ const Home = () => {
         </Row>
       </Container>
 
+      {/* Categories */}
+      <Container className="categories-section mt-4">
+        <Row>
+          <Col>
+            <div className="categories-wrapper">
+              <ButtonGroup className="category-buttons" aria-label="Product categories">
+                {categories.map(cat => (
+                  <Button
+                    key={cat}
+                    variant={activeCategory === cat ? 'primary' : 'outline-secondary'}
+                    onClick={() => setActiveCategory(cat)}
+                    className={`category-pill ${activeCategory === cat ? 'active' : ''}`}
+                  >
+                    {cat === 'all' ? 'All' : cat.replace(/[-_]/g, ' ')}
+                  </Button>
+                ))}
+              </ButtonGroup>
+            </div>
+          </Col>
+        </Row>
+      </Container>
+
       <Container className="mt-4">
         <ProductMasonry>
-          {products.map(p => (
+          {filtered.map(p => (
             <ProductCard key={p.id} id={p.id} title={p.title} image={p.image} price={p.price} affiliate={p.affiliate} />
           ))}
         </ProductMasonry>
